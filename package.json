@@ -2,7 +2,7 @@
   "name": "opk-shinyei-ppd42-cli",
   "version": "0.0.1",
   "description": "An Open Pipe Kit command line interface for interacting with the Shinyei PPD42 optical dust sensor",
-  "main": "pull",
+  "main": "stream",
   "dependencies": {
     "firmata": "0.4.1",
     "commander": "2.6.0"
