@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var firmata = require('firmata');
+
+// set up CLI flags
+program
+  .version('0.0.1')
+  .option('-d, --device <path>', "Set a path to the Arduino USB device, default /dev/ttyACM0", '/dev/ttyACM0')
+  .option('-i, --interval <seconds>', 'Set an interval; how often, in seconds, to read from the Arduino; default 1', 1)
+  .option('-p, --pin <pin>', "Set a pin # for the Arduino; default pin 8", 8)
+  .option('-n, --name <pin>', "Set the key name for the data the pin represents. Default 'value'.", 'value')
+  .option('-v, --verbose', 'Turn on verbose mode')
+  .option('-j, --json', 'Return JSON output')
+  .parse(process.argv);
+
+var log = function(msg) {
+  if (program.verbose) {
+    console.log(msg);
+  }
+}
+
+var callback = function(value) {
+  if (program.json) {
+    console.log("{'"+program.name+"':"+value+"}")
+  } else {
+    console.log(value)
+  }
+}
+
+board = new firmata.Board(program.device)
+board.on('ready',function(){
+  //arduino is ready to communicate
+
+  this.pinMode(program.pin, this.MODES.INPUT);
+
+  setInterval(function() {
+    // Read a value from the pin. Evertime there is data for the pin the callback will be fired with a value argument.
+    board.digitalRead(program.pin,callback);
+  },program.interval*1000);
+
+});
+ 
