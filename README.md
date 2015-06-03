@@ -1,2 +1,2 @@
-# opk-shinyei-ppd42-cli
-An Open Pipe Kit command line interface for interacting with the Shinyei PPD42 optical dust sensor
+# opk-firmata-cli
+An Open Pipe Kit command line interface for interacting with analog, digital, i2c etc interfaces of an Arduino with the Firmata firmware.
